@@ -72,8 +72,14 @@ import webserialEsp8266InsetIconURL from './webserialEsp8266/webserialEsp-small.
 import webserialEsp32Image from './webserialEsp32/webserialEsp32.png';
 import webserialEsp32InsetIconURL from './webserialEsp32/webserialEsp-small.png';
 
+import webserialPicoboardImage from './webserialPicoboard/webserialPicoboard.png';
+import webserialPicoboardInsetIconURL from './webserialPicoboard/webserialPicoboard-small.png';
+
 import mqttImage from './mqtt/mqtt.png';
 import mqttInsetIconURL from './mqtt/mqtt-small.png';
+
+import linenotifyImage from './linenotify/linenotify.svg';
+import linenotifyInsetIconURL from './linenotify/linenotify_small.svg';
 
 import ml2scratchIconURL from './ml2scratch/ml2scratch.png';
 import ml2scratchInsetIconURL from './ml2scratch/ml2scratch-small.png';
@@ -84,8 +90,31 @@ import posenet2scratchInsetIconURL from './posenet2scratch/posenet2scratch-small
 import tm2scratchIconURL from './tm2scratch/tm2scratch.png';
 import tm2scratchInsetIconURL from './tm2scratch/tm2scratch-small.png';
 
-export default [
-    {
+let formatMessage = messageData => messageData.defaultMessage;
+import microbitMoreIconURL from './microbitMore/entry-icon.png';
+import microbitMoreInsetIconURL from './microbitMore/inset-icon.svg';
+import microbitMoreConnectionIconURL from './microbitMore/connection-icon.svg';
+import microbitMoreConnectionSmallIconURL from './microbitMore/connection-small-icon.svg';
+
+const version = 'v2-0.2.4';
+
+const translationMap = {
+    'en': {
+        'gui.extension.microbitMore.description': `Play with all functions of micro:bit. (${version})`
+    },
+    'ja': {
+        'gui.extension.microbitMore.description': `micro:bitのすべての機能で遊ぶ。 (${version})`
+    },
+    'ja-Hira': {
+        'gui.extension.microbitMore.description': `マイクロビットのすべてのきのうであそぶ。 (${version})`
+    },
+    'zh-tw':{
+        'gui.extension.microbitMore.description': `玩轉micro:bit所有功能. (${version})`
+    }
+};
+
+const extensions = [
+   {
         name: (
             <FormattedMessage
                 defaultMessage="Music"
@@ -494,6 +523,7 @@ export default [
             <FormattedMessage
                 defaultMessage="Read and write Google Sheets and Google Forms."
                 description="read write google sheets extension"
+
                 id="gui.extension.rwgoogle.description"
             />
         ),
@@ -509,6 +539,7 @@ export default [
         name: 'Web Serial Arduino',
         extensionId: 'webserialArduino',
         collaborator: "estea chen",
+
         iconURL: webserialArduinoImage,
         insetIconURL: webserialArduinoInsetIconURL,
         description: (
@@ -545,11 +576,10 @@ export default [
         helpLink: 'https://sites.google.com/view/scratch-web-serial-api/'
 
     },
-    /*
     {
         name: 'Webserial ESP-32',
         extensionId: 'webserialEsp32',
-        collaborator: "Mr. Y's Lab,estea chen",
+        collaborator: "estea chen",
         iconURL: webserialEsp32Image,
         insetIconURL: webserialEsp32InsetIconURL,
         description: (
@@ -563,9 +593,29 @@ export default [
         disabled: false,
         internetConnectionRequired: true,
         bluetoothRequired: false,
+        helpLink: 'https://sites.google.com/view/scratch-web-serial-api/'
+
+    },
+    {
+        name: 'WebSerial Picoboard',
+        extensionId: 'webserialPicoboard',
+        collaborator: "estea chen",
+        iconURL: webserialPicoboardImage,
+        insetIconURL: webserialPicoboardInsetIconURL,
+        description: (
+        	<FormattedMessage
+            	defaultMessage="WebSerial Picoboard"
+            	description="WebSerial Picoboard extension"
+            	id="gui.extension.WebSerialPcoboard.description"
+        	/>
+    	),
+        featured: true,
+        disabled: false,
+        internetConnectionRequired: true,
+        bluetoothRequired: false,
         helpLink: 'https://ys-fang.github.io/OSEP/app/'
 
-    },*/
+    },
     {
         name: 'MQTT',
         extensionId: 'mqtt',
@@ -577,6 +627,29 @@ export default [
                 defaultMessage="Use MQTT for data transfer."
                 description="MQTT extension"
                 id="gui.extension.Mqtt.description"
+            />
+        ),
+        featured: true,
+
+        disabled: false,
+        internetConnectionRequired: true,
+        bluetoothRequired: false,
+        //helpLink: ''
+
+    },
+    {
+        name: 'LineNotify',
+        extensionId: 'linenotify',
+        collaborator: "estea chen",
+        iconURL: linenotifyImage,
+        insetIconURL: linenotifyInsetIconURL,
+        description: (
+
+            <FormattedMessage
+                defaultMessage="Use Line Notify send message."
+                description="Line Notify extension"
+                id="gui.extension.linenotify.description"
+
             />
         ),
         featured: true,
@@ -640,5 +713,49 @@ export default [
         internetConnectionRequired: true,
         bluetoothRequired: false
     },
+    {
+    name: 'Microbit More',
+    extensionId: 'microbitMore',
+    //extensionURL: 'https://microbit-more.github.io/dist/microbitMore.mjs',
+    collaborator: 'Yengawa Lab',
+    iconURL: microbitMoreIconURL,
+    insetIconURL: microbitMoreInsetIconURL,
+    description: (
+            <FormattedMessage
+                defaultMessage= 'Play with all functions of micro:bit.'
+                description= "Description for the 'Microbit More' extension"
+                id= 'gui.extension.microbitMore.description'
+            />
+        ),
+    /*get description () {
+        return formatMessage({
+            defaultMessage: 'Play with all functions of micro:bit.',
+            description: "Description for the 'Microbit More' extension",
+            id: 'gui.extension.microbitMore.description'
+        });
+    },*/
+    featured: true,
+    disabled: false,
+    bluetoothRequired: true,
+    internetConnectionRequired: false,
+    launchPeripheralConnectionFlow: true,
+    useAutoScan: false,
+    connectionIconURL: microbitMoreConnectionIconURL,
+    connectionSmallIconURL: microbitMoreConnectionSmallIconURL,
+    get connectingMessage () {
+        return formatMessage({
+            defaultMessage: 'Connecting',
+            description: 'Message to help people connect to their micro:bit.',
+            id: 'gui.extension.microbit.connectingMessage'
+        });
+    },
+    helpLink: 'https://microbit-more.github.io/',
+    setFormatMessage: formatter => {
+        formatMessage = formatter;
+    },
+    translationMap: translationMap
+  }
 ];
+export {extensions};
+export default extensions;
 
